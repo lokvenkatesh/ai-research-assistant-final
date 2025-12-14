@@ -646,21 +646,7 @@ python src/synthetic_data/generator.py
 
 ---
 
-## 📸 Screenshots
 
-### Main Interface
-![Main Interface](screenshots/main-interface.png)
-
-### Q&A with Citations
-![Q&A Demo](screenshots/qa-demo.png)
-
-### Analytics Dashboard
-![Analytics](screenshots/analytics.png)
-
-### Model Comparison
-![Model Comparison](screenshots/model-comparison.png)
-
----
 
 ## 🎓 Academic Use
 

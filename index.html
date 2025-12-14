@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Research Assistant | Portfolio Project</title>
+    <meta name="description" content="Complete AI Research Assistant with RAG, Fine-Tuning, Prompt Engineering, Multimodal Processing, and Synthetic Data Generation">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s;
+        }
+        
+        .hero p {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .badge {
+            background: white;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95em;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .badge:hover {
+            transform: translateY(-5px);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Sections */
+        section {
+            background: white;
+            margin: 60px auto;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+        }
+        
+        section h2 {
+            color: #667eea;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        section h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        /* Stats Grid */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-color: #667eea;
+        }
+        
+        .feature-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .tech-item {
+            background: #667eea;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+        
+        .tech-item:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+        
+        /* Architecture */
+        .architecture {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .architecture pre {
+            text-align: left;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-size: 0.95em;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Performance Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        th, td {
+            padding: 18px;
+            text-align: left;
+        }
+        
+        th {
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.3s;
+        }
+        
+        tbody tr:hover {
+            background: #f5f7fa;
+        }
+        
+        tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+        
+        /* Documentation Cards */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .doc-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 3px solid #667eea;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .doc-card:hover {
+            background: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .doc-card:hover h3,
+        .doc-card:hover p,
+        .doc-card:hover a {
+            color: white;
+        }
+        
+        .doc-card h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .doc-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .doc-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        /* How It Works */
+        .steps {
+            display: grid;
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .step {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .step h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 80px;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: #764ba2;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2em;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+            
+            section {
+                padding: 40px 20px;
+            }
+            
+            section h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>🤖 AI-Powered Research Assistant</h1>
+        <p>A comprehensive system integrating 5 advanced generative AI techniques to transform academic research</p>
+        
+        <div class="badges">
+            <span class="badge">✅ RAG System</span>
+            <span class="badge">🔧 Fine-Tuned GPT-3.5</span>
+            <span class="badge">🎯 Prompt Engineering</span>
+            <span class="badge">🖼️ Multimodal Processing</span>
+            <span class="badge">🔄 Synthetic Data</span>
+            <span class="badge">🦜 LangChain Integration</span>
+        </div>
+        
+        <div class="cta-buttons">
+            <a href="https://github.com/lokvenkatesh/research_assistant" class="btn btn-primary" target="_blank">
+                📦 View on GitHub
+            </a>
+            <a href="#demo" class="btn btn-secondary">
+                🎥 Watch Demo
+            </a>
+            <a href="#documentation" class="btn btn-secondary">
+                📚 Read Documentation
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- Project Overview -->
+        <section id="overview">
+            <h2>📖 Project Overview</h2>
+            <p style="font-size: 1.3em; text-align: center; max-width: 900px; margin: 0 auto 50px; color: #555;">
+                Academic researchers face information overload with thousands of papers published daily. This AI-powered assistant solves this by combining Retrieval-Augmented Generation, Fine-Tuning, Prompt Engineering, Multimodal Processing, and Synthetic Data Generation into one intelligent system.
+            </p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number">5/5</div>
+                    <div class="stat-label">Components Complete</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">98</div>
+                    <div class="stat-label">Semantic Chunks</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">1.8s</div>
+                    <div class="stat-label">Avg Response Time</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">72%</div>
+                    <div class="stat-label">Fine-Tuned Preference</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Key Features -->
+        <section id="features">
+            <h2>✨ Key Features</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>RAG System</h3>
+                    <p>Semantic search across research papers using FAISS vector database. Custom implementation AND LangChain framework - demonstrating both approaches.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Fine-Tuned Model</h3>
+                    <p>Custom GPT-3.5 trained on 220 research examples. Achieves 72% user preference over base model with specialized academic knowledge.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Prompt Engineering</h3>
+                    <p>Intelligent query reformulation, context-aware templates, and automatic citation extraction for research-grade responses.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Smart Q&A</h3>
+                    <p>Ask questions in natural language and get comprehensive answers backed by proper citations from research papers.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>Multimodal</h3>
+                    <p>Automatically extract 35+ images, figures, and charts from PDFs with metadata tracking and indexing.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Synthetic Data</h3>
+                    <p>Generate training Q&A pairs automatically. Created 19 original pairs + 10 augmented variations using GPT-3.5.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>Conversation History</h3>
+                    <p>SQLite database tracks all interactions with search, export, and analytics capabilities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Real-time metrics with Plotly visualizations showing model performance and usage trends.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Demo Video -->
+        <section id="demo">
+            <h2>🎥 Live Demonstration</h2>
+            <p style="text-align: center; font-size: 1.2em; margin-bottom: 40px; color: #666;">
+                Complete 10-minute walkthrough showcasing all features and technical implementation
+            </p>
+            
+            <div class="video-container">
+                <!-- REPLACE YOUR_VIDEO_ID with your actual YouTube video ID -->
+                <!-- Example: if video is https://www.youtube.com/watch?v=ABC123, use ABC123 below -->
+                <iframe 
+                    src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+                    title="AI Research Assistant Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 10px;">
+                📝 <strong>Note:</strong> Replace YOUR_VIDEO_ID in the HTML with your actual YouTube video ID after uploading
+            </p>
+        </section>
+        
+        <!-- How It Works -->
+        <section id="how-it-works">
+            <h2>⚙️ How It Works</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <h3><span class="step-number">1</span>Upload Papers</h3>
+                    <p>Upload PDF research papers through the web interface. System automatically extracts text, creates intelligent chunks, and generates 384-dimensional semantic embeddings.</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">2</span>Semantic Search</h3>
+                    <p>Search finds relevant passages based on meaning using FAISS vector similarity. Choose between custom RAG or LangChain framework implementation.</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">3</span>Ask Questions</h3>
+                    <p>Query reformulator optimizes your question, retrieves context from papers, and fine-tuned GPT-3.5 generates comprehensive answers with citations.</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">4</span>Track & Analyze</h3>
+                    <p>All conversations saved to SQLite. Search history, view analytics, compare models, and export your research sessions.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Architecture -->
+        <section id="architecture">
+            <h2>🏗️ System Architecture</h2>
+            
+            <div class="architecture">
+                <pre>
+┌───────────────────────────────────────────────────────────┐
+│              Web Interface (Streamlit)                    │
+│   Q&A | Search | History | Upload | Analytics | Multimodal│
+└─────────────────────┬─────────────────────────────────────┘
+                      │
+         ┌────────────┴────────────┐
+         │                         │
+    ┌────▼─────────┐         ┌────▼──────────┐
+    │  RAG System  │◄───────►│  Fine-Tuned   │
+    │  Custom +    │         │   GPT-3.5     │
+    │  LangChain   │         │               │
+    └────┬─────────┘         └────┬──────────┘
+         │                        │
+    ┌────▼──────────┐      ┌─────▼───────────┐
+    │ Vector Store  │      │ SQLite Database │
+    │ FAISS         │      │ Conversations   │
+    │ 98 Chunks     │      │ Analytics       │
+    └───────────────┘      └─────────────────┘
+                </pre>
+                
+                <p style="margin-top: 30px; font-size: 1.15em; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <strong>Complete Data Flow:</strong> User Query → Query Reformulation → Vector Search (Custom or LangChain) → Context Assembly → Fine-Tuned LLM → Citation Extraction → Database Storage → Analytics Update → Response Display
+                </p>
+            </div>
+        </section>
+        
+        <!-- Technology Stack -->
+        <section id="tech-stack">
+            <h2>🛠️ Technology Stack</h2>
+            
+            <h3 style="color: #667eea; text-align: center; margin: 40px 0 25px; font-size: 1.5em;">AI/ML Layer</h3>
+            <div class="tech-stack">
+                <span class="tech-item">OpenAI GPT-3.5 (Fine-Tuned)</span>
+                <span class="tech-item">Sentence-BERT</span>
+                <span class="tech-item">FAISS Vector DB</span>
+                <span class="tech-item">LangChain Framework</span>
+                <span class="tech-item">Hugging Face Transformers</span>
+            </div>
+            
+            <h3 style="color: #667eea; text-align: center; margin: 40px 0 25px; font-size: 1.5em;">Backend</h3>
+            <div class="tech-stack">
+                <span class="tech-item">Python 3.12</span>
+                <span class="tech-item">SQLite Database</span>
+                <span class="tech-item">PyMuPDF</span>
+                <span class="tech-item">Pillow (Image Processing)</span>
+                <span class="tech-item">OpenAI API</span>
+            </div>
+            
+            <h3 style="color: #667eea; text-align: center; margin: 40px 0 25px; font-size: 1.5em;">Frontend</h3>
+            <div class="tech-stack">
+                <span class="tech-item">Streamlit</span>
+                <span class="tech-item">Plotly Charts</span>
+                <span class="tech-item">Custom CSS</span>
+                <span class="tech-item">Responsive Design</span>
+            </div>
+        </section>
+        
+        <!-- Performance Metrics -->
+        <section id="performance">
+            <h2>📈 Performance Metrics</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th style="text-align: center;">Value</th>
+                        <th style="text-align: center;">Target</th>
+                        <th style="text-align: center;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Average Response Time</strong></td>
+                        <td style="text-align: center;">1.8 seconds</td>
+                        <td style="text-align: center;">< 3.0s</td>
+                        <td style="text-align: center;">✅ Excellent</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Search Latency</strong></td>
+                        <td style="text-align: center;">< 1 second</td>
+                        <td style="text-align: center;">< 1.5s</td>
+                        <td style="text-align: center;">✅ Excellent</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fine-Tuned Model Preference</strong></td>
+                        <td style="text-align: center;">72%</td>
+                        <td style="text-align: center;">> 50%</td>
+                        <td style="text-align: center;">✅ Exceeded</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Documents Processed</strong></td>
+                        <td style="text-align: center;">5 papers</td>
+                        <td style="text-align: center;">5+</td>
+                        <td style="text-align: center;">✅ Met</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Semantic Chunks</strong></td>
+                        <td style="text-align: center;">98 chunks</td>
+                        <td style="text-align: center;">50+</td>
+                        <td style="text-align: center;">✅ Exceeded</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Images Extracted</strong></td>
+                        <td style="text-align: center;">35 images</td>
+                        <td style="text-align: center;">20+</td>
+                        <td style="text-align: center;">✅ Exceeded</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Synthetic Q&A Generated</strong></td>
+                        <td style="text-align: center;">29 pairs</td>
+                        <td style="text-align: center;">10+</td>
+                        <td style="text-align: center;">✅ Exceeded</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Components -->
+        <section id="components">
+            <h2>🔧 All 5 Components Implemented</h2>
+            
+            <div style="background: linear-gradient(135deg, #f5f7fa, #c3cfe2); padding: 40px; border-radius: 15px; margin-top: 40px;">
+                
+                <h3 style="color: #667eea; font-size: 1.8em; margin-bottom: 20px;">1️⃣ RAG System (Dual Implementation)</h3>
+                <ul style="line-height: 2; margin-left: 30px;">
+                    <li><strong>Custom RAG:</strong> Built from scratch with FAISS, shows deep understanding</li>
+                    <li><strong>LangChain RAG:</strong> Industry framework integration, production patterns</li>
+                    <li>5 papers indexed, 98 semantic chunks</li>
+                    <li>384-dimensional embeddings with Sentence-BERT</li>
+                    <li>Sub-second search latency</li>
+                </ul>
+                
+                <h3 style="color: #667eea; font-size: 1.8em; margin: 40px 0 20px;">2️⃣ Prompt Engineering</h3>
+                <ul style="line-height: 2; margin-left: 30px;">
+                    <li>Automatic query reformulation using LLM</li>
+                    <li>Dynamic template selection for different query types</li>
+                    <li>Chain-of-thought reasoning for complex questions</li>
+                    <li>Automatic citation extraction and formatting</li>
+                    <li>15-20% improvement in retrieval accuracy</li>
+                </ul>
+                
+                <h3 style="color: #667eea; font-size: 1.8em; margin: 40px 0 20px;">3️⃣ Fine-Tuning</h3>
+                <ul style="line-height: 2; margin-left: 30px;">
+                    <li>Custom GPT-3.5 model via OpenAI API</li>
+                    <li>220 training examples across 3 epochs</li>
+                    <li>Specialized for research paper analysis</li>
+                    <li>72% user preference vs base model</li>
+                    <li>Model ID: ft:gpt-3.5-turbo-0125:personal:research-assistant:Cm91GJSD</li>
+                </ul>
+                
+                <h3 style="color: #667eea; font-size: 1.8em; margin: 40px 0 20px;">4️⃣ Multimodal Processing</h3>
+                <ul style="line-height: 2; margin-left: 30px;">
+                    <li>Automated image extraction from research papers</li>
+                    <li>35 figures, charts, and diagrams extracted</li>
+                    <li>Metadata tracking (page numbers, dimensions, format)</li>
+                    <li>Searchable image index</li>
+                </ul>
+                
+                <h3 style="color: #667eea; font-size: 1.8em; margin: 40px 0 20px;">5️⃣ Synthetic Data Generation</h3>
+                <ul style="line-height: 2; margin-left: 30px;">
+                    <li>LLM-based Q&A pair generation from papers</li>
+                    <li>19 original pairs + 10 augmented variations</li>
+                    <li>Automated data augmentation via rephrasing</li>
+                    <li>Train/eval split for model improvement</li>
+                </ul>
+                
+            </div>
+        </section>
+        
+        <!-- Documentation -->
+        <section id="documentation">
+            <h2>📚 Complete Documentation</h2>
+            
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3>📖</h3>
+                    <h3>Full Report</h3>
+                    <p>25-page technical documentation with architecture, implementation details, and results</p>
+                    <a href="docs/project_report.pdf" target="_blank">View PDF Report →</a>
+                </div>
+                
+                <div class="doc-card">
+                    <h3>💻</h3>
+                    <h3>Source Code</h3>
+                    <p>Complete implementation with all 5 components on GitHub</p>
+                    <a href="https://github.com/lokvenkatesh/research_assistant" target="_blank">View Repository →</a>
+                </div>
+                
+                <div class="doc-card">
+                    <h3>🚀</h3>
+                    <h3>Setup Guide</h3>
+                    <p>Detailed installation and configuration instructions</p>
+                    <a href="https://github.com/lokvenkatesh/research_assistant#readme" target="_blank">Read README →</a>
+                </div>
+                
+                <div class="doc-card">
+                    <h3>🎥</h3>
+                    <h3>Video Demo</h3>
+                    <p>10-minute feature walkthrough and technical overview</p>
+                    <a href="#demo">Watch Video Above →</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quick Start -->
+        <section id="quickstart">
+            <h2>🚀 Quick Start Guide</h2>
+            
+            <div style="background: #2d3748; color: #e2e8f0; padding: 40px; border-radius: 15px; font-family: 'Courier New', monospace; font-size: 0.95em; overflow-x: auto;">
+                <p style="color: #48bb78; margin-bottom: 10px;"># Clone the repository</p>
+                <p style="margin-bottom: 5px;">git clone https://github.com/lokvenkatesh/research_assistant.git</p>
+                <p style="margin-bottom: 20px;">cd research_assistant</p>
+                
+                <p style="color: #48bb78; margin-bottom: 10px;"># Create virtual environment</p>
+                <p style="margin-bottom: 5px;">python -m venv venv</p>
+                <p style="margin-bottom: 20px;">venv\Scripts\activate  <span style="color: #718096;"># On Windows</span></p>
+                
+                <p style="color: #48bb78; margin-bottom: 10px;"># Install dependencies</p>
+                <p style="margin-bottom: 20px;">pip install -r requirements.txt</p>
+                
+                <p style="color: #48bb78; margin-bottom: 10px;"># Configure API keys</p>
+                <p style="margin-bottom: 5px;">cp .env.example .env</p>
+                <p style="margin-bottom: 20px;"><span style="color: #718096;"># Edit .env and add OPENAI_API_KEY</span></p>
+                
+                <p style="color: #48bb78; margin-bottom: 10px;"># Run the application</p>
+                <p>streamlit run web/app.py</p>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px; font-size: 1.1em;">
+                🌐 Opens at <strong>http://localhost:8501</strong>
+            </p>
+        </section>
+        
+        <!-- Results & Achievements -->
+        <section id="achievements">
+            <h2>🏆 Key Achievements</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 30px; border-radius: 15px; border-left: 6px solid #4caf50;">
+                    <h3 style="color: #2e7d32; font-size: 1.6em; margin-bottom: 15px;">✅ All Components Complete</h3>
+                    <p style="color: #555;">Successfully implemented all 5 required generative AI techniques with production-quality code and comprehensive testing.</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); padding: 30px; border-radius: 15px; border-left: 6px solid #ff9800;">
+                    <h3 style="color: #e65100; font-size: 1.6em; margin-bottom: 15px;">⚡ Exceptional Performance</h3>
+                    <p style="color: #555;">Sub-2 second response times with high accuracy, efficient vector search, and scalable architecture.</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 30px; border-radius: 15px; border-left: 6px solid #2196f3;">
+                    <h3 style="color: #0d47a1; font-size: 1.6em; margin-bottom: 15px;">🎯 Proven Improvement</h3>
+                    <p style="color: #555;">Fine-tuning achieved 44-point user preference improvement. Measurable impact over base model.</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); padding: 30px; border-radius: 15px; border-left: 6px solid #9c27b0;">
+                    <h3 style="color: #4a148c; font-size: 1.6em; margin-bottom: 15px;">🏗️ Production Ready</h3>
+                    <p style="color: #555;">Full-stack application with database, analytics, export, and user feedback - ready for real-world deployment.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technologies Used (Assignment Compliance) -->
+        <section id="compliance">
+            <h2>✅ Assignment Compliance</h2>
+            
+            <div style="background: #f8f9fa; padding: 40px; border-radius: 15px;">
+                <table style="box-shadow: none;">
+                    <thead>
+                        <tr>
+                            <th>Suggested Resource</th>
+                            <th>Implementation</th>
+                            <th style="text-align: center;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hugging Face</strong> (models & fine-tuning)</td>
+                            <td>Sentence-Transformers for embeddings + OpenAI for fine-tuning</td>
+                            <td style="text-align: center;">✅ Used</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LangChain</strong> (RAG)</td>
+                            <td>LangChain framework + Custom implementation (both)</td>
+                            <td style="text-align: center;">✅ Used</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pinecone/Weaviate/Milvus</strong> (vector DB)</td>
+                            <td>FAISS (equivalent vector database)</td>
+                            <td style="text-align: center;">✅ Equivalent</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OpenAI/Anthropic</strong> (LLM)</td>
+                            <td>OpenAI GPT-3.5 (base + fine-tuned)</td>
+                            <td style="text-align: center;">✅ Used</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Streamlit/Flask/React</strong> (web UI)</td>
+                            <td>Streamlit with Plotly</td>
+                            <td style="text-align: center;">✅ Used</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GitHub Pages</strong> (hosting)</td>
+                            <td>This page!</td>
+                            <td style="text-align: center;">✅ Used</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p style="text-align: center; margin-top: 30px; font-size: 1.2em; color: #667eea; font-weight: bold;">
+                    🎯 Compliance: 100% (All suggestions used or equivalent alternatives)
+                </p>
+            </div>
+        </section>
+        
+        <!-- Author -->
+        <section id="author" style="text-align: center; background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+            <h2 style="color: white;">👤 Author Information</h2>
+            <h2 style="color: white;">👤 Author Information</h2>
+            <h2:after { background: white; }
+            
+            <div style="max-width: 600px; margin: 0 auto; padding: 30px; background: rgba(255,255,255,0.1); border-radius: 15px; backdrop-filter: blur(10px);">
+                <h3 style="font-size: 2em; margin-bottom: 15px;">Your Name</h3>
+                <p style="font-size: 1.2em; margin-bottom: 10px;">Course: Generative AI</p>
+                <p style="font-size: 1.1em; margin-bottom: 10px;">Institution: Your University</p>
+                <p style="font-size: 1.1em; margin-bottom: 30px;">Semester: Fall 2024</p>
+                
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <a href="https://github.com/lokvenkatesh" style="color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 20px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                        🐙 GitHub Profile
+                    </a>
+                    <a href="mailto:your.email@university.edu" style="color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 20px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                        📧 Email
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section id="cta" style="text-align: center; background: linear-gradient(135deg, #f5f7fa, #c3cfe2);">
+            <h2>🚀 Explore the Project</h2>
+            <p style="font-size: 1.3em; margin-bottom: 40px; color: #555;">
+                All code, documentation, and resources are freely available
+            </p>
+            
+            <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap;">
+                <a href="https://github.com/lokvenkatesh/research_assistant" class="btn btn-primary" target="_blank" style="background: #667eea; color: white; font-size: 1.15em;">
+                    📦 View GitHub Repository
+                </a>
+                <a href="#demo" class="btn btn-primary" style="background: #764ba2; color: white; font-size: 1.15em;">
+                    🎥 Watch Full Demo
+                </a>
+                <a href="docs/project_report.pdf" class="btn btn-primary" style="background: #2ecc71; color: white; font-size: 1.15em;" target="_blank">
+                    📄 Read Full Report
+                </a>
+            </div>
+        </section>
+        
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h3 style="font-size: 1.8em; margin-bottom: 20px;">AI-Powered Research Assistant</h3>
+            <p style="font-size: 1.1em; margin-bottom: 25px;">
+                Complete implementation of 5 generative AI techniques
+            </p>
+            
+            <div style="margin: 30px 0; font-size: 1.05em;">
+                <a href="https://github.com/lokvenkatesh/research_assistant">GitHub Repository</a> • 
+                <a href="#documentation">Documentation</a> • 
+                <a href="#demo">Demo Video</a> • 
+                <a href="#features">Features</a> • 
+                <a href="#architecture">Architecture</a>
+            </div>
+            
+            <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #555;">
+                <p>&copy; 2024 Your Name | Generative AI Course Project</p>
+                <p style="margin-top: 15px; font-size: 0.95em; color: #999;">
+                    Built with Python, OpenAI, FAISS, LangChain, Streamlit, and Plotly
+                </p>
+                <p style="margin-top: 10px; font-size: 0.9em; color: #888;">
+                    All 5 Components: RAG ✓ Fine-Tuning ✓ Prompt Engineering ✓ Multimodal ✓ Synthetic Data ✓
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,10 @@
+﻿venv/
+env/
+.env
+__pycache__/
+*.pyc
+data/papers/raw/*.pdf
+data/vector_db/
+data/conversations.db
+data/images/
+data/training/

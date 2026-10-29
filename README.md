@@ -712,12 +712,6 @@ MIT License - See LICENSE file for details
 
 ---
 
-## 📞 Support
-
-For questions or issues:
-- 📧 Email: your.email@university.edu
-- 🐛 GitHub Issues: [Create Issue](https://github.com/lokvenkatesh/ai-research-assistant-final/issues)
-- 📚 Documentation: See `docs/` folder
 
 ---
 
